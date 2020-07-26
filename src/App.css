@@ -1,38 +1,269 @@
-.App {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #eee;
+  line-height: 1.8;
+}
+
+.header {
+  background-color: #1877F2;
+  color: #fff;
+  padding: 0.75rem;
+}
+
+.app {
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.container-p {
+  padding: 0.5rem;
+}
+
+.info-wrapper {
+  display: flex;
+  justify-content: space-evenly;
+  flex: 1;
+  margin-top: 20px;
+}
+
+/* Info box  */
+.info-box {
+  background-color: #fff;
+  padding: 1rem;
+  margin: 0.75rem;
+  flex: 1;
+  border-radius: 5px;
+  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
+}
+
+.info-title {
+  font-weight: bolder;
+  color: rgb(165, 165, 165);
+}
+
+.info-box h2 {
+  font-size: 2rem;
+  margin-left: 1rem;
+}
+
+.country-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.country-info img {
+  width: 40px;
+  margin-right: 10px;
+}
+
+.info-box h6 {
+  color: rgb(165, 165, 165);
+}
+
+.info-today {
+  color: rgb(116, 116, 116);
+}
+
+.cases {
+  border-top: 10px solid rgb(255, 211, 16);
+}
+
+.recovered  {
+  border-top: 10px solid rgba(38, 194, 38, 0.8);
+}
+
+.recovered h2 {
+  color: rgb(38, 194, 38);
+}
+
+.deaths {
+  border-top: 10px solid rgba(211, 28, 28, 0.8);
+}
+
+.deaths h2 {
+  color: rgb(211, 28, 28);
+}
+
+/* Select  Dropdown*/
+.select {
+  width: 250px;
+  margin-top: 0.75rem;
+  background-color: #fff;
+  padding: 0 0.75rem;
+  padding-top: 0.5rem;
+  padding-left: 25px;
+  border-radius: 25px;
+  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
+}
+
+.MuiFormControl-root {
+  width: 100%;
+}
+
+.MuiSelect-select:focus {
+  background-color: #fff !important;
+}
+
+/* Wrapper */
+.wrapper {
+  margin-top: 1rem;
+}
+
+.graph {
+  background-color: #fff;
+  padding: 0.25rem;
+  margin: 1rem 0;
+  border-radius: 10px;
+  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
+}
+
+.graph-wrapper {
+  display: flex;
+  padding: 0.5rem;
+  border-radius: 8px;
+  gap: 1.25rem;
+}
+
+/* Table */
+table th {
+  text-align: left;
+}
+
+.list-wrapper {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
+  padding: 0.75rem;
+}
+
+table td, th {
+  padding: 0.5rem;
+  font-weight: 600;
+  color: rgb(73, 73, 73);
+}
+
+table th {
+  background-color: #fff !important; 
+  font-weight: bolder;
+  color:rgb(34, 34, 34);
+}
+
+
+table tr:nth-child(odd) {
+  background-color: rgb(241, 241, 241);
+}
+
+/* Footer */
+footer p {
+  background-color: rgb(54, 54, 54);
+  padding: 0.25rem;
+  color: #fff;
+  font-size: 0.6rem;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/* Responsive Media queries */
+@media(max-width: 500px) {
+  .header {
+    font-size: 0.6rem;
+    padding: 0.5rem;
   }
-}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  /* info box */
+  .info-wrapper {
+    justify-content: center;
   }
-  to {
-    transform: rotate(360deg);
+
+  .info-box {
+    padding: 0.5rem;
+    margin: 0.5rem;
   }
+
+  .info-title {
+    font-size: 0.6rem;
+  }
+
+  .country-info img {
+    display: none;
+    margin: 0;
+  }
+
+  .info-wrapper h2 {
+    text-align: center;
+    font-size: 0.8rem;
+    margin: 0.5rem 0rem;
+  }
+
+  .info-wrapper h6 {
+    font-size: 0.3rem;
+  }
+
+  .info-wrapper h5 {
+    font-size: 0.45rem;
+  }
+  .cases {
+    border-top: 6px solid rgb(255, 211, 16);
+  }
+  .recovered  {
+    border-top: 6px solid rgba(38, 194, 38, 0.8);
+  }
+  .deaths {
+    border-top: 6px solid rgba(211, 28, 28, 0.8);
+  }
+
+  /* Select component */
+  .select {
+    width: 150px;
+    padding: 0 0.5rem;
+    padding-top: 0.25rem;
+    font-size: 0.6rem !important;
+  }
+
+  .MuiFormControl-root {
+    font-size: 0.6rem !important;
+  }
+
+  .MuiInputBase-root {
+    font-size: 0.7rem !important;
+  }
+
+  /* Wrapper */
+  .wrapper {
+    margin-top: 0.25rem;
+  }
+
+  .graph {
+    margin: 0.5rem 0;
+    font-size: 0.6rem !important;
+  }
+
+  .graph-wrapper {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  /* Table */
+  td {
+    font-size: 0.7rem;
+  }
+  th {
+    font-size: 0.8rem;
+  }
+
+  .list-wrapper h3 {
+    font-size: 0.9rem;
+  }
+
 }
+
