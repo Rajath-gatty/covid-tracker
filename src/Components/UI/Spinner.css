@@ -49,3 +49,9 @@
 @-moz-keyframes cssload-spin {
 	100%{ -moz-transform: rotate(360deg); transform: rotate(360deg); }
 }
+
+@media(max-width: 500px) {
+	.cssload-container {
+		padding: 1rem;
+	}
+}

@@ -11,6 +11,7 @@ function App() {
   const [specificCountry, setSpecificCountry] = useState('');
   const [loading, setLoading] = useState(false);
   const [countryList, setCountryList] = useState([]);
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     const fetchsingleCountry = async () => {
@@ -20,6 +21,10 @@ function App() {
           .then(data => {
             setSpecificCountry(data)
           })
+          .catch(err => {
+            setLoading(false);
+            setError(true);
+          })
       } else {
         setLoading(true);
         await fetch(`https://disease.sh/v3/covid-19/countries/${country}`)
@@ -27,6 +32,10 @@ function App() {
           .then(data => {
             setSpecificCountry(data);
             setLoading(false);
+          })
+          .catch(err => {
+            setLoading(false);
+            setError(true);
           })
       }
     }
@@ -50,6 +59,10 @@ function App() {
           setCountries(countries);
           setCountryList(data);
         })
+        .catch(err => {
+          setLoading(false);
+          setError(true)
+        })
     }
     fetchCountries();
   }, [])
@@ -66,63 +79,65 @@ function App() {
           <h2>COVID TRACKER</h2>
         </div>
       </div>
-      <div className="container-p container">
-        {/* Select Form */}
-        <div className="select">
-          <FormControl>
-            <Select variant="standard" value={country} onChange={setSingleCountry}>
-              <MenuItem value="Global">Global</MenuItem>
-              {countries.map((country, i) => {
-                return <MenuItem key={i} value={country.value}>{country.name}</MenuItem>
-              })}
-            </Select>
-          </FormControl>
-        </div>
-        <div className="info-wrapper">
-          {/* Info cases */}
-          <InfoBox
-            title="Cases"
-            flag={specificCountry.countryInfo ? specificCountry.countryInfo.flag : null}
-            subTitle={specificCountry.country}
-            cases={specificCountry.cases}
-            today={specificCountry.todayCases}
-            loading={loading}
-            casesType="cases"
-          />
-
-          {/* Info Recovered */}
-          <InfoBox
-            title="Recovered"
-            cases={specificCountry.recovered}
-            today={specificCountry.todayRecovered}
-            updated={specificCountry.updated}
-            loading={loading}
-            casesType="recovered"
-          />
-
-          {/* Info deaths */}
-          <InfoBox
-            title="Deaths"
-            cases={specificCountry.deaths}
-            today={specificCountry.todayDeaths}
-            loading={loading}
-            casesType="deaths" />
-        </div>
-
-        <div className="wrapper">
-          <div className="graph-wrapper">
-            <LineGraph country={specificCountry.country} casesType="cases" graphColor="rgb(255, 211, 16)" />
-            <LineGraph country={specificCountry.country} casesType="deaths" graphColor="rgba(255, 0, 0)" />
+      {!error ?
+        <div className="container-p container">
+          {/* Select Form */}
+          <div className="select">
+            <FormControl>
+              <Select variant="standard" value={country} onChange={setSingleCountry}>
+                <MenuItem value="Global">Global</MenuItem>
+                {countries.map((country, i) => {
+                  return <MenuItem key={i} value={country.value}>{country.name}</MenuItem>
+                })}
+              </Select>
+            </FormControl>
           </div>
-          <div className="list-wrapper">
-            <h3 style={{ textAlign: "center" }}>CASES BY COUNTRIES</h3>
-            <Table countries={countryList} />
+          <div className="info-wrapper">
+            {/* Info cases */}
+            <InfoBox
+              title="Cases"
+              flag={specificCountry.countryInfo ? specificCountry.countryInfo.flag : null}
+              subTitle={specificCountry.country}
+              cases={specificCountry.cases}
+              today={specificCountry.todayCases}
+              loading={loading}
+              casesType="cases"
+            />
+
+            {/* Info Recovered */}
+            <InfoBox
+              title="Recovered"
+              cases={specificCountry.recovered}
+              today={specificCountry.todayRecovered}
+              updated={specificCountry.updated}
+              loading={loading}
+              casesType="recovered"
+            />
+
+            {/* Info deaths */}
+            <InfoBox
+              title="Deaths"
+              cases={specificCountry.deaths}
+              today={specificCountry.todayDeaths}
+              loading={loading}
+              casesType="deaths" />
           </div>
-        </div>
-      </div>
-      <footer>
-        <p>- Developed by Rajath | &copy; covid tracker </p>
-      </footer>
+
+          <div className="wrapper">
+            <div className="graph-wrapper">
+              <LineGraph country={specificCountry.country} casesType="cases" graphColor="rgb(255, 211, 16)" />
+              <LineGraph country={specificCountry.country} casesType="deaths" graphColor="rgba(255, 0, 0)" />
+            </div>
+            <div className="list-wrapper">
+              <h3 style={{ textAlign: "center" }}>CASES BY COUNTRIES</h3>
+              <Table countries={countryList} />
+            </div>
+          </div>
+          <footer>
+            <p>- Developed by Rajath | &copy; covid tracker </p>
+          </footer>
+        </div> : <p style={{ textAlign="center" }}>An error occured!</p>}
+
     </div>
   );
 }
