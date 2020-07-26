@@ -136,7 +136,7 @@ function App() {
           <footer>
             <p>- Developed by Rajath | &copy; covid tracker </p>
           </footer>
-        </div> : <p style={{ textAlign="center" }}>An error occured!</p>}
+        </div> : <p style={{ textAlign: "center" }}>An error occured!</p>}
 
     </div>
   );
