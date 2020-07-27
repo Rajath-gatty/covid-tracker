@@ -4,10 +4,10 @@ import numeral from 'numeral';
 import Spinner from './UI/Spinner';
 
 
-const LineGraph = ({ country, casesType, graphColor }) => {
+const LineGraph = ({ country, casesType, graphColor, background }) => {
     const [globalGraphData, setGlobalGraphData] = useState({});
     const [countryData, setCountryData] = useState({});
-
+    console.log(window)
     const options = {
 
         elements: {
@@ -102,6 +102,7 @@ const LineGraph = ({ country, casesType, graphColor }) => {
             }
         }
         fetchHistory();
+
     }, [country, casesType])
 
 
@@ -113,7 +114,7 @@ const LineGraph = ({ country, casesType, graphColor }) => {
                         data: countryData,
                         label: `new ${casesType} in ${country}`,
                         borderColor: graphColor,
-                        fill: "none"
+                        backgroundColor: background
                     }]
                 }}
                     options={options} />
@@ -123,11 +124,12 @@ const LineGraph = ({ country, casesType, graphColor }) => {
                             data: globalGraphData,
                             label: `Worldwide new ${casesType}`,
                             borderColor: graphColor,
-                            pointBorderColor: "rgba(255, 211, 50)",
-                            fill: "none"
+                            backgroundColor: background,
+                            pointBorderColor: "rgba(255, 211, 50)"
                         }]
                     }}
                         options={options} /> : <Spinner />}
+
         </div>
     );
 }

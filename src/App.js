@@ -11,7 +11,7 @@ function App() {
   const [specificCountry, setSpecificCountry] = useState('');
   const [loading, setLoading] = useState(false);
   const [countryList, setCountryList] = useState([]);
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchsingleCountry = async () => {
@@ -65,6 +65,7 @@ function App() {
         })
     }
     fetchCountries();
+
   }, [])
 
   const setSingleCountry = (e) => {
@@ -125,9 +126,20 @@ function App() {
 
           <div className="wrapper">
             <div className="graph-wrapper">
-              <LineGraph country={specificCountry.country} casesType="cases" graphColor="rgb(255, 211, 16)" />
-              <LineGraph country={specificCountry.country} casesType="deaths" graphColor="rgba(255, 0, 0)" />
+              <LineGraph
+                country={specificCountry.country}
+                casesType="cases"
+                graphColor="rgb(255, 211, 16)"
+                background="rgba(255, 211, 16, 0.4" />
+
+              <LineGraph
+                country={specificCountry.country}
+                casesType="deaths"
+                graphColor="rgba(255, 0, 0)"
+                background="rgba(255, 0, 0, 0.4)" />
+
             </div>
+
             <div className="list-wrapper">
               <h3 style={{ textAlign: "center" }}>CASES BY COUNTRIES</h3>
               <Table countries={countryList} />
@@ -137,7 +149,6 @@ function App() {
             <p>- Developed by Rajath | &copy; covid tracker </p>
           </footer>
         </div> : <p style={{ textAlign: "center" }}>An error occured!</p>}
-
     </div>
   );
 }
