@@ -7,7 +7,7 @@ import Spinner from './UI/Spinner';
 const LineGraph = ({ country, casesType, graphColor, background }) => {
     const [globalGraphData, setGlobalGraphData] = useState({});
     const [countryData, setCountryData] = useState({});
-    console.log(window)
+
     const options = {
 
         elements: {

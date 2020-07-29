@@ -10,7 +10,7 @@ function App() {
   const [country, setCountry] = useState('Global');
   const [specificCountry, setSpecificCountry] = useState('');
   const [loading, setLoading] = useState(false);
-  const [countryList, setCountryList] = useState([]);
+  // const [countryList, setCountryList] = useState([]);
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -57,7 +57,7 @@ function App() {
             }
           ));
           setCountries(countries);
-          setCountryList(data);
+          // setCountryList(data);
         })
         .catch(err => {
           setLoading(false);
@@ -137,12 +137,11 @@ function App() {
                 casesType="deaths"
                 graphColor="rgba(255, 0, 0)"
                 background="rgba(255, 0, 0, 0.4)" />
-
             </div>
 
             <div className="list-wrapper">
-              <h3 style={{ textAlign: "center" }}>CASES BY COUNTRIES</h3>
-              <Table countries={countryList} />
+              <h3 style={{ textAlign: "center" }}>CASES BY STATES</h3>
+              <Table />
             </div>
           </div>
           <footer>
