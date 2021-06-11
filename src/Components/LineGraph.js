@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { Line } from 'react-chartjs-2';
-import numeral from 'numeral';
-import Spinner from './UI/Spinner';
-
+import React, { useState, useEffect } from "react";
+import { Line } from "react-chartjs-2";
+import numeral from "numeral";
+import Spinner from "./UI/Spinner";
 
 const LineGraph = ({ country, casesType, graphColor, background }) => {
     const [globalGraphData, setGlobalGraphData] = useState({});
     const [countryData, setCountryData] = useState({});
 
     const options = {
-
         elements: {
             point: {
-                radius: 0
+                radius: 0,
             },
         },
         maintainAspectRatio: true,
@@ -48,7 +46,7 @@ const LineGraph = ({ country, casesType, graphColor, background }) => {
                 },
             ],
         },
-    }
+    };
 
     const buildGlobalChartData = (chartData, casesType = "cases") => {
         let chart = [];
@@ -57,14 +55,14 @@ const LineGraph = ({ country, casesType, graphColor, background }) => {
             if (lastDataPoint) {
                 const newDataPoint = {
                     x: date,
-                    y: chartData[casesType][date] - lastDataPoint
-                }
-                chart.push(newDataPoint)
+                    y: chartData[casesType][date] - lastDataPoint,
+                };
+                chart.push(newDataPoint);
             }
             lastDataPoint = chartData[casesType][date];
         }
         return chart;
-    }
+    };
 
     const buildCountryChartData = (chartData, casesType = "cases") => {
         let chart = [];
@@ -73,65 +71,79 @@ const LineGraph = ({ country, casesType, graphColor, background }) => {
             if (lastDataPoint) {
                 const newDataPoint = {
                     x: date,
-                    y: chartData.timeline[casesType][date] - lastDataPoint
-                }
-                chart.push(newDataPoint)
+                    y: chartData.timeline[casesType][date] - lastDataPoint,
+                };
+                chart.push(newDataPoint);
             }
             lastDataPoint = chartData.timeline[casesType][date];
         }
         return chart;
-    }
-
+    };
 
     useEffect(() => {
         const fetchHistory = async () => {
             if (!country) {
-                await fetch('https://disease.sh/v3/covid-19/historical/all?lastdays=120')
-                    .then(res => res.json())
-                    .then(data => {
+                await fetch(
+                    "https://disease.sh/v3/covid-19/historical/all?lastdays=120"
+                )
+                    .then((res) => res.json())
+                    .then((data) => {
                         const chartData = buildGlobalChartData(data, casesType);
                         setGlobalGraphData(chartData);
-                    })
+                    });
             } else {
-                await fetch(`https://disease.sh/v3/covid-19/historical/${country}?lastdays=120`)
-                    .then(res => res.json())
-                    .then(data => {
-                        const countryChartData = buildCountryChartData(data, casesType);
+                await fetch(
+                    `https://disease.sh/v3/covid-19/historical/${country}?lastdays=120`
+                )
+                    .then((res) => res.json())
+                    .then((data) => {
+                        const countryChartData = buildCountryChartData(
+                            data,
+                            casesType
+                        );
                         setCountryData(countryChartData);
-                    })
+                    });
             }
-        }
+        };
         fetchHistory();
-
-    }, [country, casesType])
-
+    }, [country, casesType]);
 
     return (
         <div className="graph">
-            {countryData.length && country ?
-                <Line data={{
-                    datasets: [{
-                        data: countryData,
-                        label: `new ${casesType} in ${country}`,
-                        borderColor: graphColor,
-                        backgroundColor: background
-                    }]
-                }}
-                    options={options} />
-                : globalGraphData.length ?
-                    <Line data={{
-                        datasets: [{
-                            data: globalGraphData,
-                            label: `Worldwide new ${casesType}`,
-                            borderColor: graphColor,
-                            backgroundColor: background,
-                            pointBorderColor: "rgba(255, 211, 50)"
-                        }]
+            {countryData.length && country ? (
+                <Line
+                    data={{
+                        datasets: [
+                            {
+                                data: countryData,
+                                label: `new ${casesType} in ${country}`,
+                                borderColor: graphColor,
+                                backgroundColor: background,
+                            },
+                        ],
                     }}
-                        options={options} /> : <Spinner />}
-
+                    options={options}
+                />
+            ) : globalGraphData.length ? (
+                <Line
+                    data={{
+                        datasets: [
+                            {
+                                data: globalGraphData,
+                                label: `Worldwide new ${casesType}`,
+                                borderColor: graphColor,
+                                backgroundColor: background,
+                                pointBorderColor: "rgba(255, 211, 50)",
+                            },
+                        ],
+                    }}
+                    options={options}
+                />
+            ) : (
+                <Spinner />
+            )}
         </div>
     );
-}
+};
 
 export default LineGraph;
